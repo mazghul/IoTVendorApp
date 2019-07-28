@@ -41,8 +41,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView.setSelectedItemId(navView.getSelectedItemId());
+        navView.setItemBackground(getDrawable(R.color.bg));
         mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        Fragment fragment = AddProductFragment.newInstance();
+        getFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment).commit();
     }
 
 }

@@ -27,10 +27,20 @@ public class VolleyRequest<T> extends JsonRequest<T> {
     private Class<T> responseClass;
     private static final String HOST_NAME = "https://5lexhjd5b7.execute-api.us-west-2.amazonaws.com/default/";
     private static final String SAVE =  HOST_NAME + "saveProducts";
+    private static final String GET =  "https://bpvqofi2dh.execute-api.us-west-2.amazonaws.com/default/getItem" + "saveProducts";
 
 
     public VolleyRequest(int method, String url, String requestBody, Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, requestBody, listener, errorListener);
+    }
+
+    public VolleyRequest(String url, Response.Listener<T> listener, Response.ErrorListener errorListener) {
+        this(Method.GET, url, listener, errorListener);
+    }
+
+    public VolleyRequest(int httpMethod, String url, Response.Listener<T> listener,
+                                  Response.ErrorListener errorListener) {
+        this(httpMethod, url, null, listener, errorListener);
     }
 
     public VolleyRequest(int httpMethod, String url, Object requestBody, Response.Listener<T> listener,
@@ -46,6 +56,15 @@ public class VolleyRequest<T> extends JsonRequest<T> {
                                      Response.ErrorListener errorListener) {
         Log.d(TAG, "Method:" + product.toString());
         return new VolleyRequest(Method.POST, SAVE, product, listener, errorListener)
+                .setTag(Product.class.getSimpleName())
+                .setClass(AbstractResponse.class);
+    }
+
+
+    public static VolleyRequest getProducts(Response.Listener<AbstractResponse> listener, Product product,
+                                     Response.ErrorListener errorListener) {
+        Log.d(TAG, "Method:" + product.toString());
+        return new VolleyRequest(SAVE, listener, errorListener)
                 .setTag(Product.class.getSimpleName())
                 .setClass(AbstractResponse.class);
     }
