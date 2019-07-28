@@ -27,7 +27,7 @@ public class VolleyRequest<T> extends JsonRequest<T> {
     private Class<T> responseClass;
     private static final String HOST_NAME = "https://5lexhjd5b7.execute-api.us-west-2.amazonaws.com/default/";
     private static final String SAVE =  HOST_NAME + "saveProducts";
-    private static final String GET =  "https://bpvqofi2dh.execute-api.us-west-2.amazonaws.com/default/getItem" + "saveProducts";
+    private static final String GET =  "https://bpvqofi2dh.execute-api.us-west-2.amazonaws.com/default/getItem";
 
 
     public VolleyRequest(int method, String url, String requestBody, Response.Listener<T> listener, Response.ErrorListener errorListener) {
@@ -61,10 +61,9 @@ public class VolleyRequest<T> extends JsonRequest<T> {
     }
 
 
-    public static VolleyRequest getProducts(Response.Listener<AbstractResponse> listener, Product product,
+    public static VolleyRequest getProducts(Response.Listener<AbstractResponse> listener,
                                      Response.ErrorListener errorListener) {
-        Log.d(TAG, "Method:" + product.toString());
-        return new VolleyRequest(SAVE, listener, errorListener)
+        return new VolleyRequest(GET, listener, errorListener)
                 .setTag(Product.class.getSimpleName())
                 .setClass(AbstractResponse.class);
     }
